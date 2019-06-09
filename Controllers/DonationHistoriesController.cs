@@ -27,6 +27,13 @@ namespace Blood_Donation.Controllers
         {
             return _context.donationHistories.Include(e=>e.donor).Include(e=>e.recepient);
         }
+        // GET: api/Donors/5
+        [Route("ByDonor/{id}")]
+        public IEnumerable<DonationHistory> ByDonor([FromRoute] int id)
+        {
+            return _context.donationHistories.Where(e => e.donorId == id);
+
+        }
 
         // GET: api/DonationHistories/5
         [HttpGet("{id}")]
