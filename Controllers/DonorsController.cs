@@ -56,7 +56,7 @@ namespace Blood_Donation.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != donor.donorId)
+            if (id != donor.id)
             {
                 return BadRequest();
             }
@@ -78,7 +78,7 @@ namespace Blood_Donation.Controllers
                     throw;
                 }
             }
-            donor = _context.donors.Include(e => e.user).FirstOrDefault(e => e.donorId == donor.donorId);
+            donor = _context.donors.Include(e => e.user).FirstOrDefault(e => e.id == donor.id);
             return Ok(donor);
         }
 
@@ -93,8 +93,8 @@ namespace Blood_Donation.Controllers
 
             _context.donors.Add(donor);
             await _context.SaveChangesAsync();
-            donor = _context.donors.Include(e => e.user).FirstOrDefault(e => e.donorId == donor.donorId);
-            return CreatedAtAction("GetDonor", new { id = donor.donorId }, donor);
+            donor = _context.donors.Include(e => e.user).FirstOrDefault(e => e.id == donor.id);
+            return CreatedAtAction("GetDonor", new { id = donor.id }, donor);
         }
 
         // DELETE: api/Donors/5
@@ -120,7 +120,7 @@ namespace Blood_Donation.Controllers
 
         private bool DonorExists(int id)
         {
-            return _context.donors.Any(e => e.donorId == id);
+            return _context.donors.Any(e => e.id == id);
         }
     }
 }

@@ -46,6 +46,25 @@ namespace Blood_Donation.Controllers
 
             return Ok(user);
         }
+        // GET: api/Users/email&password
+        [HttpGet("{email}&{password}")]
+        public async Task<IActionResult> GetUserByEmailAndPassword([FromRoute] string email, string password)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = _context.users.FirstOrDefault(x=>x.email==email&&x.password==password);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
@@ -56,7 +75,7 @@ namespace Blood_Donation.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != user.userId)
+            if (id != user.id)
             {
                 return BadRequest();
             }
@@ -94,7 +113,7 @@ namespace Blood_Donation.Controllers
             _context.users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.userId }, user);
+            return CreatedAtAction("GetUser", new { id = user.id }, user);
         }
 
         // DELETE: api/Users/5
@@ -120,7 +139,7 @@ namespace Blood_Donation.Controllers
 
         private bool UserExists(int id)
         {
-            return _context.users.Any(e => e.userId == id);
+            return _context.users.Any(e => e.id == id);
         }
     }
 }

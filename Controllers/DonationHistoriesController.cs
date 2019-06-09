@@ -56,7 +56,7 @@ namespace Blood_Donation.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != donationHistory.donationHistoryId)
+            if (id != donationHistory.id)
             {
                 return BadRequest();
             }
@@ -78,7 +78,7 @@ namespace Blood_Donation.Controllers
                     throw;
                 }
             }
-            donationHistory = _context.donationHistories.Include(e => e.donor).Include(e => e.recepient).FirstOrDefault(e => e.donationHistoryId == donationHistory.donationHistoryId);
+            donationHistory = _context.donationHistories.Include(e => e.donor).Include(e => e.recepient).FirstOrDefault(e => e.id == donationHistory.id);
             return Ok(donationHistory);
         }
 
@@ -93,8 +93,8 @@ namespace Blood_Donation.Controllers
 
             _context.donationHistories.Add(donationHistory);
             await _context.SaveChangesAsync();
-            donationHistory = _context.donationHistories.Include(e => e.donor).Include(e => e.recepient).FirstOrDefault(e => e.donationHistoryId == donationHistory.donationHistoryId);
-            return CreatedAtAction("GetDonationHistory", new { id = donationHistory.donationHistoryId }, donationHistory);
+            donationHistory = _context.donationHistories.Include(e => e.donor).Include(e => e.recepient).FirstOrDefault(e => e.id == donationHistory.id);
+            return CreatedAtAction("GetDonationHistory", new { id = donationHistory.id }, donationHistory);
         }
 
         // DELETE: api/DonationHistories/5
@@ -120,7 +120,7 @@ namespace Blood_Donation.Controllers
 
         private bool DonationHistoryExists(int id)
         {
-            return _context.donationHistories.Any(e => e.donationHistoryId == id);
+            return _context.donationHistories.Any(e => e.id == id);
         }
     }
 }

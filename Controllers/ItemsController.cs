@@ -29,7 +29,7 @@ namespace Blood_Donation.Controllers
         }
 
         // GET: api/Items/5
-        [HttpGet("{id}")]
+        [HttpGet("{login}")]
         public async Task<IActionResult> GetItem([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -56,7 +56,7 @@ namespace Blood_Donation.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != item.Id)
+            if (id != item.id)
             {
                 return BadRequest();
             }
@@ -94,7 +94,7 @@ namespace Blood_Donation.Controllers
             _context.items.Add(item);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetItem", new { id = item.Id }, item);
+            return CreatedAtAction("GetItem", new { id = item.id }, item);
         }
 
         // DELETE: api/Items/5
@@ -120,7 +120,7 @@ namespace Blood_Donation.Controllers
 
         private bool ItemExists(int id)
         {
-            return _context.items.Any(e => e.Id == id);
+            return _context.items.Any(e => e.id == id);
         }
     }
 }

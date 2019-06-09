@@ -56,7 +56,7 @@ namespace Blood_Donation.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != report.reportId)
+            if (id != report.id)
             {
                 return BadRequest();
             }
@@ -78,7 +78,7 @@ namespace Blood_Donation.Controllers
                     throw;
                 }
             }
-            report = _context.reports.Include(e => e.donationHistory).FirstOrDefault(e => e.reportId == report.reportId);
+            report = _context.reports.Include(e => e.donationHistory).FirstOrDefault(e => e.id == report.id);
             return Ok(report);
         }
 
@@ -93,8 +93,8 @@ namespace Blood_Donation.Controllers
 
             _context.reports.Add(report);
             await _context.SaveChangesAsync();
-            report = _context.reports.Include(e => e.donationHistory).FirstOrDefault(e => e.reportId == report.reportId);
-            return CreatedAtAction("GetReport", new { id = report.reportId }, report);
+            report = _context.reports.Include(e => e.donationHistory).FirstOrDefault(e => e.id == report.id);
+            return CreatedAtAction("GetReport", new { id = report.id }, report);
         }
 
         // DELETE: api/Reports/5
@@ -120,7 +120,7 @@ namespace Blood_Donation.Controllers
 
         private bool ReportExists(int id)
         {
-            return _context.reports.Any(e => e.reportId == id);
+            return _context.reports.Any(e => e.id == id);
         }
     }
 }

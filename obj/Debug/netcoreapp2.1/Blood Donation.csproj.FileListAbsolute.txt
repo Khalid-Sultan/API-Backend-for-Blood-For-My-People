@@ -12,3 +12,17 @@ C:\Users\gemme\source\repos\Blood Donation\Blood Donation\obj\Debug\netcoreapp2.
 C:\Users\gemme\source\repos\Blood Donation\Blood Donation\bin\Debug\netcoreapp2.1\Blood Donation.pdb
 C:\Users\gemme\source\repos\Blood Donation\Blood Donation\obj\Debug\netcoreapp2.1\Blood Donation.dll
 C:\Users\gemme\source\repos\Blood Donation\Blood Donation\obj\Debug\netcoreapp2.1\Blood Donation.pdb
+C:\Users\KhalidSultan\Desktop\BloodApi2\bin\Debug\netcoreapp2.1\Blood Donation.deps.json
+C:\Users\KhalidSultan\Desktop\BloodApi2\bin\Debug\netcoreapp2.1\Blood Donation.runtimeconfig.json
+C:\Users\KhalidSultan\Desktop\BloodApi2\bin\Debug\netcoreapp2.1\Blood Donation.runtimeconfig.dev.json
+C:\Users\KhalidSultan\Desktop\BloodApi2\bin\Debug\netcoreapp2.1\Blood Donation.dll
+C:\Users\KhalidSultan\Desktop\BloodApi2\bin\Debug\netcoreapp2.1\Blood Donation.pdb
+C:\Users\KhalidSultan\Desktop\BloodApi2\obj\Debug\netcoreapp2.1\Blood Donation.csprojAssemblyReference.cache
+C:\Users\KhalidSultan\Desktop\BloodApi2\obj\Debug\netcoreapp2.1\Blood Donation.csproj.CoreCompileInputs.cache
+C:\Users\KhalidSultan\Desktop\BloodApi2\obj\Debug\netcoreapp2.1\Blood Donation.RazorAssemblyInfo.cache
+C:\Users\KhalidSultan\Desktop\BloodApi2\obj\Debug\netcoreapp2.1\Blood Donation.RazorAssemblyInfo.cs
+C:\Users\KhalidSultan\Desktop\BloodApi2\obj\Debug\netcoreapp2.1\Blood Donation.AssemblyInfoInputs.cache
+C:\Users\KhalidSultan\Desktop\BloodApi2\obj\Debug\netcoreapp2.1\Blood Donation.AssemblyInfo.cs
+C:\Users\KhalidSultan\Desktop\BloodApi2\obj\Debug\netcoreapp2.1\Blood Donation.RazorTargetAssemblyInfo.cache
+C:\Users\KhalidSultan\Desktop\BloodApi2\obj\Debug\netcoreapp2.1\Blood Donation.dll
+C:\Users\KhalidSultan\Desktop\BloodApi2\obj\Debug\netcoreapp2.1\Blood Donation.pdb

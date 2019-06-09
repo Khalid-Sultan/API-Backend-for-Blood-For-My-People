@@ -56,7 +56,7 @@ namespace Blood_Donation.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != recepient.recepientId)
+            if (id != recepient.id)
             {
                 return BadRequest();
             }
@@ -78,7 +78,7 @@ namespace Blood_Donation.Controllers
                     throw;
                 }
             }
-            recepient = _context.recepients.Include(e => e.user).FirstOrDefault(e => e.recepientId == recepient.recepientId);
+            recepient = _context.recepients.Include(e => e.user).FirstOrDefault(e => e.id == recepient.id);
             return Ok(recepient);
         }
 
@@ -93,9 +93,9 @@ namespace Blood_Donation.Controllers
 
             _context.recepients.Add(recepient);
             await _context.SaveChangesAsync();
-            recepient = _context.recepients.Include(e => e.user).FirstOrDefault(e => e.recepientId == recepient.recepientId);
+            recepient = _context.recepients.Include(e => e.user).FirstOrDefault(e => e.id == recepient.id);
 
-            return CreatedAtAction("GetRecepient", new { id = recepient.recepientId }, recepient);
+            return CreatedAtAction("GetRecepient", new { id = recepient.id }, recepient);
         }
 
         // DELETE: api/Recepients/5
@@ -121,7 +121,7 @@ namespace Blood_Donation.Controllers
 
         private bool RecepientExists(int id)
         {
-            return _context.recepients.Any(e => e.recepientId == id);
+            return _context.recepients.Any(e => e.id == id);
         }
     }
 }

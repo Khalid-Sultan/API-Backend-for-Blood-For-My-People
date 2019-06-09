@@ -7,7 +7,7 @@ namespace BloodDonation.Models
 {
     public class Report
     {
-        public int reportId { get; set; }
+        public int id { get; set; }
         public int? donationHistoryId { get; set; }
         public DonationHistory donationHistory { get; set; }
         public string bloodType { get; set; }
