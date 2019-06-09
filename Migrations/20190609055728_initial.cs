@@ -3,51 +3,33 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BloodDonation.Migrations
 {
-    public partial class third : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Id",
-                table: "items",
-                newName: "id");
-
-            migrationBuilder.RenameColumn(
-                name: "value",
-                table: "items",
-                newName: "user_url");
-
-            migrationBuilder.AddColumn<string>(
-                name: "description",
-                table: "items",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "full_name",
-                table: "items",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "name",
-                table: "items",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "stargazers_count",
-                table: "items",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<string>(
-                name: "user_login",
-                table: "items",
-                nullable: true);
+            migrationBuilder.CreateTable(
+                name: "items",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    name = table.Column<string>(nullable: true),
+                    full_name = table.Column<string>(nullable: true),
+                    user_login = table.Column<string>(nullable: true),
+                    user_url = table.Column<string>(nullable: true),
+                    description = table.Column<string>(nullable: true),
+                    stargazers_count = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_items", x => x.id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "users",
                 columns: table => new
                 {
-                    userId = table.Column<int>(nullable: false)
+                    id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     email = table.Column<string>(nullable: true),
                     password = table.Column<string>(nullable: true),
@@ -55,14 +37,14 @@ namespace BloodDonation.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_users", x => x.userId);
+                    table.PrimaryKey("PK_users", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "donors",
                 columns: table => new
                 {
-                    donorId = table.Column<int>(nullable: false)
+                    id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     userId = table.Column<int>(nullable: true),
                     fullName = table.Column<string>(nullable: true),
@@ -71,12 +53,12 @@ namespace BloodDonation.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_donors", x => x.donorId);
+                    table.PrimaryKey("PK_donors", x => x.id);
                     table.ForeignKey(
                         name: "FK_donors_users_userId",
                         column: x => x.userId,
                         principalTable: "users",
-                        principalColumn: "userId",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -84,7 +66,7 @@ namespace BloodDonation.Migrations
                 name: "recepients",
                 columns: table => new
                 {
-                    recepientId = table.Column<int>(nullable: false)
+                    id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     userId = table.Column<int>(nullable: true),
                     name = table.Column<string>(nullable: true),
@@ -93,12 +75,12 @@ namespace BloodDonation.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_recepients", x => x.recepientId);
+                    table.PrimaryKey("PK_recepients", x => x.id);
                     table.ForeignKey(
                         name: "FK_recepients_users_userId",
                         column: x => x.userId,
                         principalTable: "users",
-                        principalColumn: "userId",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -106,7 +88,7 @@ namespace BloodDonation.Migrations
                 name: "donationHistories",
                 columns: table => new
                 {
-                    donationHistoryId = table.Column<int>(nullable: false)
+                    id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     donorId = table.Column<int>(nullable: true),
                     recepientId = table.Column<int>(nullable: true),
@@ -115,18 +97,18 @@ namespace BloodDonation.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_donationHistories", x => x.donationHistoryId);
+                    table.PrimaryKey("PK_donationHistories", x => x.id);
                     table.ForeignKey(
                         name: "FK_donationHistories_donors_donorId",
                         column: x => x.donorId,
                         principalTable: "donors",
-                        principalColumn: "donorId",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_donationHistories_recepients_recepientId",
                         column: x => x.recepientId,
                         principalTable: "recepients",
-                        principalColumn: "recepientId",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -134,19 +116,19 @@ namespace BloodDonation.Migrations
                 name: "reports",
                 columns: table => new
                 {
-                    reportId = table.Column<int>(nullable: false)
+                    id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     donationHistoryId = table.Column<int>(nullable: true),
                     bloodType = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_reports", x => x.reportId);
+                    table.PrimaryKey("PK_reports", x => x.id);
                     table.ForeignKey(
                         name: "FK_reports_donationHistories_donationHistoryId",
                         column: x => x.donationHistoryId,
                         principalTable: "donationHistories",
-                        principalColumn: "donationHistoryId",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -179,6 +161,9 @@ namespace BloodDonation.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "items");
+
+            migrationBuilder.DropTable(
                 name: "reports");
 
             migrationBuilder.DropTable(
@@ -192,36 +177,6 @@ namespace BloodDonation.Migrations
 
             migrationBuilder.DropTable(
                 name: "users");
-
-            migrationBuilder.DropColumn(
-                name: "description",
-                table: "items");
-
-            migrationBuilder.DropColumn(
-                name: "full_name",
-                table: "items");
-
-            migrationBuilder.DropColumn(
-                name: "name",
-                table: "items");
-
-            migrationBuilder.DropColumn(
-                name: "stargazers_count",
-                table: "items");
-
-            migrationBuilder.DropColumn(
-                name: "user_login",
-                table: "items");
-
-            migrationBuilder.RenameColumn(
-                name: "id",
-                table: "items",
-                newName: "Id");
-
-            migrationBuilder.RenameColumn(
-                name: "user_url",
-                table: "items",
-                newName: "value");
         }
     }
 }

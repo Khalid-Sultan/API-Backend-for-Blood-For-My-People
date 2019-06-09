@@ -46,6 +46,13 @@ namespace Blood_Donation.Controllers
 
             return Ok(donor);
         }
+        // GET: api/Donors/5
+        [Route("ByUser/{id}")]
+        public IEnumerable<Donor>  ByUser([FromRoute] int id)
+        {
+            return _context.donors.Where(e => e.userId == id).Include(e => e.user);
+
+        }
 
         // PUT: api/Donors/5
         [HttpPut("{id}")]
