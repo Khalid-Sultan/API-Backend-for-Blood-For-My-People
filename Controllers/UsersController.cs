@@ -48,14 +48,14 @@ namespace Blood_Donation.Controllers
         }
         // GET: api/Users/email&password
         [HttpGet("{email}&{password}")]
-        public async Task<IActionResult> GetUserByEmailAndPassword([FromRoute] string email, string password)
+        public  async Task<IActionResult>  GetUserByEmailAndPassword([FromRoute] string email, string password)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = _context.users.FirstOrDefault(x=>x.email==email&&x.password==password);
+            var user =  _context.users.FirstOrDefault(x => x.email == email && x.password == password);
 
             if (user == null)
             {
