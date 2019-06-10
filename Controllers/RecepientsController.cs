@@ -82,15 +82,32 @@ namespace Blood_Donation.Controllers
             return Ok(recepient);
         }
 
+        public class Clean
+        {
+            public string name { get; set; }
+            public string location { get; set; }
+            public string phoneNumber { get; set; }
+            public string username { get; set; }
+            public string password { get; set; }
+        }
+
         // POST: api/Recepients
         [HttpPost]
-        public async Task<IActionResult> PostRecepient([FromBody] Recepient recepient)
+        public async Task<IActionResult> PostRecepient([FromBody] Clean clean)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            User user = new User { email = clean.username, password = clean.password, role = "Recepient" };
+            _context.users.Add(user);
+            await _context.SaveChangesAsync();
+            Recepient recepient = new Recepient();
+            recepient.name = clean.name;
+            recepient.location = clean.location;
+            recepient.phoneNumber = clean.phoneNumber;
+            recepient.userId = _context.users.FirstOrDefault(x=>x.email== clean.username).id;
+            recepient.user = user;
             _context.recepients.Add(recepient);
             await _context.SaveChangesAsync();
             recepient = _context.recepients.Include(e => e.user).FirstOrDefault(e => e.id == recepient.id);

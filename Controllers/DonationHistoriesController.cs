@@ -28,6 +28,21 @@ namespace Blood_Donation.Controllers
             return _context.donationHistories.Include(e=>e.donor).Include(e=>e.recepient);
         }
 
+        //GET: api/DonationHistories/donorId
+        [HttpGet("{donorId}")]
+        public IEnumerable<DonationHistory> GetDonationHistoryByDonorId([FromRoute] int donorId)
+        {
+            return _context.donationHistories.Include(e => e.donor).Include(e => e.recepient).Where(x => x.donorId == donorId);
+        }
+        //GET: api/DonationHistories/recepientId
+        [HttpGet("{recepientId}")]
+        public IEnumerable<DonationHistory> GetDonationHistoryByRecepientId([FromRoute] int recepientId)
+        {
+            return _context.donationHistories.Include(e => e.donor).Include(e => e.recepient).Where(x => x.donorId == recepientId);
+        }
+
+
+
         // GET: api/DonationHistories/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDonationHistory([FromRoute] int id)
