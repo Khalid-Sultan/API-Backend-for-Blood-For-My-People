@@ -112,7 +112,7 @@ namespace Blood_Donation.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            donationHistory.date = DateTime.Now.ToShortDateString();
             _context.donationHistories.Add(donationHistory);
             await _context.SaveChangesAsync();
             donationHistory = _context.donationHistories.Include(e => e.donor).Include(e => e.recepient).FirstOrDefault(e => e.id == donationHistory.id);

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gemme\\source\\repos\\Blood Donation\\Blood Donation\\Blood Donation.csproj": {}
+    "C:\\Users\\KhalidSultan\\Desktop\\BloodApi2\\Blood Donation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gemme\\source\\repos\\Blood Donation\\Blood Donation\\Blood Donation.csproj": {
+    "C:\\Users\\KhalidSultan\\Desktop\\BloodApi2\\Blood Donation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gemme\\source\\repos\\Blood Donation\\Blood Donation\\Blood Donation.csproj",
+        "projectUniqueName": "C:\\Users\\KhalidSultan\\Desktop\\BloodApi2\\Blood Donation.csproj",
         "projectName": "Blood Donation",
-        "projectPath": "C:\\Users\\gemme\\source\\repos\\Blood Donation\\Blood Donation\\Blood Donation.csproj",
-        "packagesPath": "C:\\Users\\gemme\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gemme\\source\\repos\\Blood Donation\\Blood Donation\\obj\\",
+        "projectPath": "C:\\Users\\KhalidSultan\\Desktop\\BloodApi2\\Blood Donation.csproj",
+        "packagesPath": "C:\\Users\\KhalidSultan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\KhalidSultan\\Desktop\\BloodApi2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\gemme\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\KhalidSultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,6 +25,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\KhalidSultan\\source\\OOP\\repos\\SobelanBusinessCenterManagementSoftware\\packages\\MaterialDesignThemes.2.5.0.1205": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -53,6 +54,7 @@
               "version": "[2.1.2, )"
             },
             "Microsoft.NETCore.App": {
+              "suppressParent": "All",
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true

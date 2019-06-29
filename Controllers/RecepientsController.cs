@@ -27,7 +27,13 @@ namespace Blood_Donation.Controllers
         {
             return _context.recepients;
         }
+        // GET: api/Recepients/5
+        [Route("ByUser/{id}")]
+        public Recepient ByUser([FromRoute] int id)
+        {
+            return _context.recepients.Where(e => e.userId == id).FirstOrDefault();
 
+        }
         // GET: api/Recepients/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRecepient([FromRoute] int id)

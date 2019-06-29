@@ -88,19 +88,35 @@ namespace Blood_Donation.Controllers
             donor = _context.donors.Include(e => e.user).FirstOrDefault(e => e.id == donor.id);
             return Ok(donor);
         }
+        public class Clean
+        {
+            public string name { get; set; }
+            public string dateOfBirth { get; set; }
+            public string phoneNumber { get; set; }
+            public string username { get; set; }
+            public string password { get; set; }
+        } 
 
         // POST: api/Donors
         [HttpPost]
-        public async Task<IActionResult> PostDonor([FromBody] Donor donor)
+        public async Task<IActionResult> PostDonor([FromBody] Clean clean)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            User user = new User { email = clean.username, password = clean.password, role = "Donor" };
+            _context.users.Add(user);
+            await _context.SaveChangesAsync();
+            Donor donor = new Donor();
+            donor.fullName = clean.name;
+            donor.dateOfBirth = clean.dateOfBirth;
+            donor.phoneNumber = clean.phoneNumber;
+            donor.userId = _context.users.FirstOrDefault(x => x.email == clean.username).id;
+            donor.user = user;
             _context.donors.Add(donor);
             await _context.SaveChangesAsync();
-            donor = _context.donors.Include(e => e.user).FirstOrDefault(e => e.id == donor.id);
+            donor = _context.donors.Include(e => e.user).FirstOrDefault(e => e.id == donor.id); 
             return CreatedAtAction("GetDonor", new { id = donor.id }, donor);
         }
 
