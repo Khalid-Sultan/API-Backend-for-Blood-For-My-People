@@ -29,15 +29,15 @@ namespace Blood_Donation.Controllers
         }
 
         // GET: api/Users/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser([FromRoute] int id)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUser([FromRoute] int userId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.users.FindAsync(id);
+            var user = await _context.users.FindAsync(userId);
 
             if (user == null)
             {
@@ -67,15 +67,15 @@ namespace Blood_Donation.Controllers
 
 
         // PUT: api/Users/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser([FromRoute] int id, [FromBody] User user)
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> PutUser([FromRoute] int userId, [FromBody] User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != user.id)
+            if (userId != user.userId)
             {
                 return BadRequest();
             }
@@ -88,7 +88,7 @@ namespace Blood_Donation.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!UserExists(userId))
                 {
                     return NotFound();
                 }
@@ -113,19 +113,19 @@ namespace Blood_Donation.Controllers
             _context.users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.id }, user);
+            return CreatedAtAction("GetUser", new { userId = user.userId }, user);
         }
 
         // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser([FromRoute] int id)
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> DeleteUser([FromRoute] int userId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.users.FindAsync(id);
+            var user = await _context.users.FindAsync(userId);
             if (user == null)
             {
                 return NotFound();
@@ -137,9 +137,11 @@ namespace Blood_Donation.Controllers
             return Ok(user);
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(int userId)
         {
-            return _context.users.Any(e => e.id == id);
+            return _context.users.Any(e => e.userId == userId);
         }
     }
 }
+
+

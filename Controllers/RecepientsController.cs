@@ -28,22 +28,22 @@ namespace Blood_Donation.Controllers
             return _context.recepients;
         }
         // GET: api/Recepients/5
-        [Route("ByUser/{id}")]
-        public Recepient ByUser([FromRoute] int id)
+        [Route("ByUser/{recepientId}")]
+        public Recepient ByUser([FromRoute] int recepientId)
         {
-            return _context.recepients.Where(e => e.userId == id).FirstOrDefault();
+            return _context.recepients.Where(e => e.userId == recepientId).FirstOrDefault();
 
         }
         // GET: api/Recepients/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetRecepient([FromRoute] int id)
+        [HttpGet("{recepientId}")]
+        public async Task<IActionResult> GetRecepient([FromRoute] int recepientId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var recepient = await _context.recepients.FindAsync(id);
+            var recepient = await _context.recepients.FindAsync(recepientId);
 
             if (recepient == null)
             {
@@ -54,15 +54,15 @@ namespace Blood_Donation.Controllers
         }
 
         // PUT: api/Recepients/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRecepient([FromRoute] int id, [FromBody] Recepient recepient)
+        [HttpPut("{recepientId}")]
+        public async Task<IActionResult> PutRecepient([FromRoute] int recepientId, [FromBody] Recepient recepient)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != recepient.id)
+            if (recepientId != recepient.recepientId)
             {
                 return BadRequest();
             }
@@ -75,7 +75,7 @@ namespace Blood_Donation.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RecepientExists(id))
+                if (!RecepientExists(recepientId))
                 {
                     return NotFound();
                 }
@@ -84,7 +84,7 @@ namespace Blood_Donation.Controllers
                     throw;
                 }
             }
-            recepient = _context.recepients.Include(e => e.user).FirstOrDefault(e => e.id == recepient.id);
+            recepient = _context.recepients.Include(e => e.user).FirstOrDefault(e => e.recepientId == recepient.recepientId);
             return Ok(recepient);
         }
 
@@ -112,25 +112,25 @@ namespace Blood_Donation.Controllers
             recepient.name = clean.name;
             recepient.location = clean.location;
             recepient.phoneNumber = clean.phoneNumber;
-            recepient.userId = _context.users.FirstOrDefault(x=>x.email== clean.username).id;
+            recepient.userId = _context.users.FirstOrDefault(x=>x.email== clean.username).userId;
             recepient.user = user;
             _context.recepients.Add(recepient);
             await _context.SaveChangesAsync();
-            recepient = _context.recepients.Include(e => e.user).FirstOrDefault(e => e.id == recepient.id);
+            recepient = _context.recepients.Include(e => e.user).FirstOrDefault(e => e.recepientId == recepient.recepientId);
 
-            return CreatedAtAction("GetRecepient", new { id = recepient.id }, recepient);
+            return CreatedAtAction("GetRecepient", new { recepientId = recepient.recepientId }, recepient);
         }
 
         // DELETE: api/Recepients/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRecepient([FromRoute] int id)
+        [HttpDelete("{recepientId}")]
+        public async Task<IActionResult> DeleteRecepient([FromRoute] int recepientId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var recepient = await _context.recepients.FindAsync(id);
+            var recepient = await _context.recepients.FindAsync(recepientId);
             if (recepient == null)
             {
                 return NotFound();
@@ -142,9 +142,9 @@ namespace Blood_Donation.Controllers
             return Ok(recepient);
         }
 
-        private bool RecepientExists(int id)
+        private bool RecepientExists(int recepientId)
         {
-            return _context.recepients.Any(e => e.id == id);
+            return _context.recepients.Any(e => e.recepientId == recepientId);
         }
     }
 }

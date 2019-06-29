@@ -15,13 +15,13 @@ namespace BloodDonation.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("BloodDonation.Models.DonationHistory", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("donationHistoryId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -33,7 +33,7 @@ namespace BloodDonation.Migrations
 
                     b.Property<int?>("recepientId");
 
-                    b.HasKey("id");
+                    b.HasKey("donationHistoryId");
 
                     b.HasIndex("donorId");
 
@@ -44,7 +44,7 @@ namespace BloodDonation.Migrations
 
             modelBuilder.Entity("BloodDonation.Models.Donor", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("donorId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -56,7 +56,7 @@ namespace BloodDonation.Migrations
 
                     b.Property<int?>("userId");
 
-                    b.HasKey("id");
+                    b.HasKey("donorId");
 
                     b.HasIndex("userId");
 
@@ -88,7 +88,7 @@ namespace BloodDonation.Migrations
 
             modelBuilder.Entity("BloodDonation.Models.Recepient", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("recepientId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -100,7 +100,7 @@ namespace BloodDonation.Migrations
 
                     b.Property<int?>("userId");
 
-                    b.HasKey("id");
+                    b.HasKey("recepientId");
 
                     b.HasIndex("userId");
 
@@ -109,7 +109,7 @@ namespace BloodDonation.Migrations
 
             modelBuilder.Entity("BloodDonation.Models.Report", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("reportId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -117,7 +117,7 @@ namespace BloodDonation.Migrations
 
                     b.Property<int?>("donationHistoryId");
 
-                    b.HasKey("id");
+                    b.HasKey("reportId");
 
                     b.HasIndex("donationHistoryId");
 
@@ -126,7 +126,7 @@ namespace BloodDonation.Migrations
 
             modelBuilder.Entity("BloodDonation.Models.User", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("userId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -136,7 +136,7 @@ namespace BloodDonation.Migrations
 
                     b.Property<string>("role");
 
-                    b.HasKey("id");
+                    b.HasKey("userId");
 
                     b.ToTable("users");
                 });

@@ -29,15 +29,15 @@ namespace Blood_Donation.Controllers
         }
 
         // GET: api/Donors/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDonor([FromRoute] int id)
+        [HttpGet("{donorId}")]
+        public async Task<IActionResult> GetDonor([FromRoute] int donorId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var donor = await _context.donors.FindAsync(id);
+            var donor = await _context.donors.FindAsync(donorId);
 
             if (donor == null)
             {
@@ -47,23 +47,23 @@ namespace Blood_Donation.Controllers
             return Ok(donor);
         }
         // GET: api/Donors/5
-        [Route("ByUser/{id}")]
-        public Donor  ByUser([FromRoute] int id)
+        [Route("ByUser/{donorId}")]
+        public Donor  ByUser([FromRoute] int donorId)
         {
-            return _context.donors.Where(e => e.userId == id).FirstOrDefault();
+            return _context.donors.Where(e => e.userId == donorId).FirstOrDefault();
 
         }
 
         // PUT: api/Donors/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDonor([FromRoute] int id, [FromBody] Donor donor)
+        [HttpPut("{donorId}")]
+        public async Task<IActionResult> PutDonor([FromRoute] int donorId, [FromBody] Donor donor)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != donor.id)
+            if (donorId != donor.donorId)
             {
                 return BadRequest();
             }
@@ -76,7 +76,7 @@ namespace Blood_Donation.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DonorExists(id))
+                if (!DonorExists(donorId))
                 {
                     return NotFound();
                 }
@@ -85,7 +85,7 @@ namespace Blood_Donation.Controllers
                     throw;
                 }
             }
-            donor = _context.donors.Include(e => e.user).FirstOrDefault(e => e.id == donor.id);
+            donor = _context.donors.Include(e => e.user).FirstOrDefault(e => e.donorId == donor.donorId);
             return Ok(donor);
         }
         public class Clean
@@ -112,24 +112,24 @@ namespace Blood_Donation.Controllers
             donor.fullName = clean.name;
             donor.dateOfBirth = clean.dateOfBirth;
             donor.phoneNumber = clean.phoneNumber;
-            donor.userId = _context.users.FirstOrDefault(x => x.email == clean.username).id;
+            donor.userId = _context.users.FirstOrDefault(x => x.email == clean.username).userId;
             donor.user = user;
             _context.donors.Add(donor);
             await _context.SaveChangesAsync();
-            donor = _context.donors.Include(e => e.user).FirstOrDefault(e => e.id == donor.id); 
-            return CreatedAtAction("GetDonor", new { id = donor.id }, donor);
+            donor = _context.donors.Include(e => e.user).FirstOrDefault(e => e.donorId == donor.donorId); 
+            return CreatedAtAction("GetDonor", new { donorId = donor.donorId }, donor);
         }
 
         // DELETE: api/Donors/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDonor([FromRoute] int id)
+        [HttpDelete("{donorId}")]
+        public async Task<IActionResult> DeleteDonor([FromRoute] int donorId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var donor = await _context.donors.FindAsync(id);
+            var donor = await _context.donors.FindAsync(donorId);
             if (donor == null)
             {
                 return NotFound();
@@ -141,9 +141,9 @@ namespace Blood_Donation.Controllers
             return Ok(donor);
         }
 
-        private bool DonorExists(int id)
+        private bool DonorExists(int donorId)
         {
-            return _context.donors.Any(e => e.id == id);
+            return _context.donors.Any(e => e.donorId == donorId);
         }
     }
 }

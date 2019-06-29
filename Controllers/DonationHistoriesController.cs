@@ -25,13 +25,35 @@ namespace Blood_Donation.Controllers
         [HttpGet]
         public IEnumerable<DonationHistory> GetdonationHistories()
         {
-            return _context.donationHistories.Include(e=>e.donor).Include(e=>e.recepient);
+            IEnumerable<DonationHistory> donationHistories = _context.donationHistories;
+            //.Include(e=>e.donor).Include(e=>e.recepient);
+            //foreach(DonationHistory donation in donationHistories)
+            //{
+            //    int? donorId = donation.donorId;
+            //    int? recepientId = donation.recepientId;
+            //    if (donorId.HasValue && recepientId.HasValue)
+            //    {
+            //        int donor = donorId.Value;
+            //        int recepient = recepientId.Value;
+            //        donation.donor.DonationHistories = ByDonor(donor).ToList();
+            //        donation.recepient.DonationHistories = ByRecepient(recepient).ToList();
+            //        Console.Write(donation);
+            //    }
+            //}
+            return donationHistories;
         }
         // GET: api/Donors/5
-        [Route("ByDonor/{id}")]
-        public IEnumerable<DonationHistory> ByDonor([FromRoute] int id)
+        [Route("ByDonor/{donorId}")]
+        public IEnumerable<DonationHistory> ByDonor([FromRoute] int donorId)
         {
-            return _context.donationHistories.Where(e => e.donorId == id);
+            return _context.donationHistories.Where(e => e.donorId == donorId);
+
+        }
+        // GET: api/Donors/5
+        [Route("ByRecepient/{recepientId}")]
+        public IEnumerable<DonationHistory> ByRecepient([FromRoute] int recepientId)
+        {
+            return _context.donationHistories.Where(e => e.recepientId == recepientId);
 
         }
 
@@ -51,15 +73,15 @@ namespace Blood_Donation.Controllers
 
 
         // GET: api/DonationHistories/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDonationHistory([FromRoute] int id)
+        [HttpGet("{donationHistoryId}")]
+        public async Task<IActionResult> GetDonationHistory([FromRoute] int donationHistoryId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var donationHistory = await _context.donationHistories.FindAsync(id);
+            var donationHistory = await _context.donationHistories.FindAsync(donationHistoryId);
 
             if (donationHistory == null)
             {
@@ -70,15 +92,15 @@ namespace Blood_Donation.Controllers
         }
 
         // PUT: api/DonationHistories/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDonationHistory([FromRoute] int id, [FromBody] DonationHistory donationHistory)
+        [HttpPut("{donationHistoryId}")]
+        public async Task<IActionResult> PutDonationHistory([FromRoute] int donationHistoryId, [FromBody] DonationHistory donationHistory)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != donationHistory.id)
+            if (donationHistoryId != donationHistory.donationHistoryId)
             {
                 return BadRequest();
             }
@@ -91,7 +113,7 @@ namespace Blood_Donation.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DonationHistoryExists(id))
+                if (!DonationHistoryExists(donationHistoryId))
                 {
                     return NotFound();
                 }
@@ -100,7 +122,7 @@ namespace Blood_Donation.Controllers
                     throw;
                 }
             }
-            donationHistory = _context.donationHistories.Include(e => e.donor).Include(e => e.recepient).FirstOrDefault(e => e.id == donationHistory.id);
+            donationHistory = _context.donationHistories.Include(e => e.donor).Include(e => e.recepient).FirstOrDefault(e => e.donationHistoryId == donationHistory.donationHistoryId);
             return Ok(donationHistory);
         }
 
@@ -115,20 +137,20 @@ namespace Blood_Donation.Controllers
             donationHistory.date = DateTime.Now.ToShortDateString();
             _context.donationHistories.Add(donationHistory);
             await _context.SaveChangesAsync();
-            donationHistory = _context.donationHistories.Include(e => e.donor).Include(e => e.recepient).FirstOrDefault(e => e.id == donationHistory.id);
-            return CreatedAtAction("GetDonationHistory", new { id = donationHistory.id }, donationHistory);
+            donationHistory = _context.donationHistories.Include(e => e.donor).Include(e => e.recepient).FirstOrDefault(e => e.donationHistoryId == donationHistory.donationHistoryId);
+            return CreatedAtAction("GetDonationHistory", new { donationHistoryId = donationHistory.donationHistoryId }, donationHistory);
         }
 
         // DELETE: api/DonationHistories/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDonationHistory([FromRoute] int id)
+        [HttpDelete("{donationHistoryId}")]
+        public async Task<IActionResult> DeleteDonationHistory([FromRoute] int donationHistoryId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var donationHistory = await _context.donationHistories.FindAsync(id);
+            var donationHistory = await _context.donationHistories.FindAsync(donationHistoryId);
             if (donationHistory == null)
             {
                 return NotFound();
@@ -140,9 +162,9 @@ namespace Blood_Donation.Controllers
             return Ok(donationHistory);
         }
 
-        private bool DonationHistoryExists(int id)
+        private bool DonationHistoryExists(int donationHistoryId)
         {
-            return _context.donationHistories.Any(e => e.id == id);
+            return _context.donationHistories.Any(e => e.donationHistoryId == donationHistoryId);
         }
     }
 }

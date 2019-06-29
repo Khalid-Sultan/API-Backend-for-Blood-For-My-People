@@ -42,15 +42,15 @@ namespace Blood_Donation.Controllers
         }
 
         // GET: api/Reports/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetReport([FromRoute] int id)
+        [HttpGet("{reportId}")]
+        public async Task<IActionResult> GetReport([FromRoute] int reportId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var report = await _context.reports.FindAsync(id);
+            var report = await _context.reports.FindAsync(reportId);
 
             if (report == null)
             {
@@ -61,15 +61,15 @@ namespace Blood_Donation.Controllers
         }
 
         // PUT: api/Reports/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutReport([FromRoute] int id, [FromBody] Report report)
+        [HttpPut("{reportId}")]
+        public async Task<IActionResult> PutReport([FromRoute] int reportId, [FromBody] Report report)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != report.id)
+            if (reportId != report.reportId)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace Blood_Donation.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ReportExists(id))
+                if (!ReportExists(reportId))
                 {
                     return NotFound();
                 }
@@ -91,7 +91,7 @@ namespace Blood_Donation.Controllers
                     throw;
                 }
             }
-            report = _context.reports.Include(e => e.donationHistory).FirstOrDefault(e => e.id == report.id);
+            report = _context.reports.Include(e => e.donationHistory).FirstOrDefault(e => e.reportId == report.reportId);
             return Ok(report);
         }
 
@@ -106,20 +106,20 @@ namespace Blood_Donation.Controllers
 
             _context.reports.Add(report);
             await _context.SaveChangesAsync();
-            report = _context.reports.Include(e => e.donationHistory).FirstOrDefault(e => e.id == report.id);
-            return CreatedAtAction("GetReport", new { id = report.id }, report);
+            report = _context.reports.Include(e => e.donationHistory).FirstOrDefault(e => e.reportId == report.reportId);
+            return CreatedAtAction("GetReport", new { reportId = report.reportId }, report);
         }
 
         // DELETE: api/Reports/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReport([FromRoute] int id)
+        [HttpDelete("{reportId}")]
+        public async Task<IActionResult> DeleteReport([FromRoute] int reportId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var report = await _context.reports.FindAsync(id);
+            var report = await _context.reports.FindAsync(reportId);
             if (report == null)
             {
                 return NotFound();
@@ -131,9 +131,9 @@ namespace Blood_Donation.Controllers
             return Ok(report);
         }
 
-        private bool ReportExists(int id)
+        private bool ReportExists(int reportId)
         {
-            return _context.reports.Any(e => e.id == id);
+            return _context.reports.Any(e => e.reportId == reportId);
         }
     }
 }
