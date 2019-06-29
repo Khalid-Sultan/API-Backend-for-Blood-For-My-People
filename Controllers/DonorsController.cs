@@ -47,10 +47,10 @@ namespace Blood_Donation.Controllers
             return Ok(donor);
         }
         // GET: api/Donors/5
-        [Route("ByUser/{donorId}")]
-        public Donor  ByUser([FromRoute] int donorId)
+        [Route("byUser/{id}")]
+        public Donor ByUser([FromRoute] int id)
         {
-            return _context.donors.Where(e => e.userId == donorId).FirstOrDefault();
+            return _context.donors.Where(e => e.userId == id).FirstOrDefault();
 
         }
 

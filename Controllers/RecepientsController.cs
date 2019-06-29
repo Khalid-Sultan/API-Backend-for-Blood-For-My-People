@@ -28,10 +28,10 @@ namespace Blood_Donation.Controllers
             return _context.recepients;
         }
         // GET: api/Recepients/5
-        [Route("ByUser/{recepientId}")]
-        public Recepient ByUser([FromRoute] int recepientId)
+        [Route("ByUser/{userId}")]
+        public Recepient ByUser([FromRoute] int userId)
         {
-            return _context.recepients.Where(e => e.userId == recepientId).FirstOrDefault();
+            return _context.recepients.Where(e => e.userId == userId).FirstOrDefault();
 
         }
         // GET: api/Recepients/5
