@@ -29,16 +29,22 @@ namespace Blood_Donation.Controllers
         }
 
         // GET: api/Reports/donorId
-        [HttpGet("{donorId}")]
+        [HttpGet("ByDonor/{donorId}")]
         public IEnumerable<Report> GetReportsByDonorId([FromRoute] int donorId)
         {
             return _context.reports.Include(e => e.donationHistory).Where(e => e.donationHistory.donorId == donorId);
         }
         // GET: api/Reports/recepientId
-        [HttpGet("{recepientId}")]
+        [HttpGet("ByRecepient/{recepientId}")]
         public IEnumerable<Report> GetReportsByRecepientId([FromRoute] int recepientId)
         {
             return _context.reports.Include(e => e.donationHistory).Where(e => e.donationHistory.recepientId == recepientId);
+        }
+        // GET: api/Reports/donationHistoryId
+        [HttpGet("ByDonationHistory/{donationHistoryId}")]
+        public Report GetReportByDonationHistoryId([FromRoute] int donationHistoryId)
+        {
+            return _context.reports.Where(e => e.donationHistoryId == donationHistoryId).FirstOrDefault();
         }
 
         // GET: api/Reports/5

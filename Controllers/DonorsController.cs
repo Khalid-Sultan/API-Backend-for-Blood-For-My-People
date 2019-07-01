@@ -25,7 +25,7 @@ namespace Blood_Donation.Controllers
         [HttpGet]
         public IEnumerable<Donor> Getdonors()
         {
-            return _context.donors.Include(e=>e.user);
+            return _context.donors;
         }
 
         // GET: api/Donors/5
