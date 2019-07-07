@@ -1,4 +1,5 @@
-﻿using BloodDonation.Models;
+﻿using Blood_Donation.Models;
+using BloodDonation.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@ namespace BloodDonation.Data
         public DbSet<Item> items { get; set; }
 
         public DbSet<DonationHistory> donationHistories { get; set; }
+        public DbSet<Message> messages { get; set; }
         public DbSet<Donor> donors { get; set; }
         public DbSet<Recepient> recepients { get; set; }
         public DbSet<Report> reports { get; set; }

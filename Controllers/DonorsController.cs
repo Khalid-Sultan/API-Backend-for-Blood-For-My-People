@@ -92,7 +92,7 @@ namespace Blood_Donation.Controllers
         {
             public string name { get; set; }
             public string dateOfBirth { get; set; }
-            public string phoneNumber { get; set; }
+            public string phone { get; set; }
             public string username { get; set; }
             public string password { get; set; }
         } 
@@ -105,13 +105,18 @@ namespace Blood_Donation.Controllers
             {
                 return BadRequest(ModelState);
             }
-            User user = new User { email = clean.username, password = clean.password, role = "Donor" };
+            
+            User user = new User();
+            user.email = clean.username;
+            user.password = clean.password; 
+            
+            user.role = "Donor";
             _context.users.Add(user);
             await _context.SaveChangesAsync();
             Donor donor = new Donor();
             donor.fullName = clean.name;
             donor.dateOfBirth = clean.dateOfBirth;
-            donor.phoneNumber = clean.phoneNumber;
+            donor.phoneNumber = clean.phone;
             donor.userId = _context.users.FirstOrDefault(x => x.email == clean.username).userId;
             donor.user = user;
             _context.donors.Add(donor);

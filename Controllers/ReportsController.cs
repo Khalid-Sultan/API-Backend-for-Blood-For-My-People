@@ -126,6 +126,9 @@ namespace Blood_Donation.Controllers
             }
 
             var report = await _context.reports.FindAsync(reportId);
+            var donationHistory= _context.donationHistories.FirstOrDefault(x => x.donationHistoryId == report.donationHistoryId);
+            _context.donationHistories.Remove(donationHistory);
+            await _context.SaveChangesAsync();
             if (report == null)
             {
                 return NotFound();
